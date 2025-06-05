@@ -150,7 +150,16 @@
   <footer class="text-white text-center py-3">
     <small>&copy; 2025 Tech Support 2.0. Todos los derechos reservados.</small>
   </footer>
+<!-- Botón flotante -->
+<button id="chatbot-toggle" onclick="toggleChatbot()">💬</button>
 
+<!-- Chatbot oculto inicialmente -->
+<div id="chatbot-container" class="d-flex">
+  <div id="chatbot-header">Asistente de Ciberseguridad</div>
+  <div id="chatbot-body"></div>
+  <button id="chatbot-restart" onclick="startChat()">↺ Reiniciar conversación</button>
+</div>
+  
 <script>
   const chatbot = document.getElementById('chatbot-container');
   const chatbotBody = document.getElementById('chatbot-body');
