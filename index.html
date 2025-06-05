@@ -24,6 +24,70 @@
       background-color: #5a7d9a;
       color: white;
     }
+
+    #chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #5a7d9a;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  font-size: 1.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 9998;
+}
+
+#chatbot-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 9999;
+  font-size: 0.9rem;
+  display: none;
+  flex-direction: column;
+}
+
+#chatbot-header {
+  background-color: #5a7d9a;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#chatbot-body {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.chatbot-message {
+  margin-bottom: 10px;
+}
+
+.chatbot-button {
+  margin: 5px 0;
+  width: 100%;
+}
+
+#chatbot-restart {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  background: none;
+  border: none;
+  color: #5a7d9a;
+  text-decoration: underline;
+}
   </style>
 </head>
 <body>
@@ -88,5 +152,60 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Botón flotante -->
+<button id="chatbot-toggle" onclick="toggleChatbot()">💬</button>
+
+<!-- Chatbot oculto inicialmente -->
+<div id="chatbot-container" class="d-flex">
+  <div id="chatbot-header">Asistente de Ciberseguridad</div>
+  <div id="chatbot-body"></div>
+  <button id="chatbot-restart" onclick="startChat()">↺ Reiniciar conversación</button>
+</div>
+  <script>
+  const chatbot = document.getElementById('chatbot-container');
+  const chatbotBody = document.getElementById('chatbot-body');
+
+  function toggleChatbot() {
+    chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'flex' : 'none';
+    if (chatbot.style.display === 'flex') startChat();
+  }
+
+  function startChat() {
+    chatbotBody.innerHTML = '<div class="chatbot-message">Hola 👋 ¿En qué podemos ayudarte?</div>';
+    chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="responder(\'prevencion\')">Medidas preventivas para fortalecer mi ciberseguridad</button>';
+    chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="responder(\'ataque\')">Medidas durante un ciberataque</button>';
+  }
+
+  function delayResponse(text, delay = 2000) {
+    chatbotBody.innerHTML += '<div class="chatbot-message"><em>Pensando...</em></div>';
+    setTimeout(() => {
+      chatbotBody.innerHTML += `<div class="chatbot-message">${text}</div>`;
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }, delay);
+  }
+
+  function responder(opcion) {
+    chatbotBody.innerHTML = '<div class="chatbot-message"><em>Pensando...</em></div>';
+    setTimeout(() => {
+      chatbotBody.innerHTML = '';
+      if (opcion === 'prevencion') {
+        chatbotBody.innerHTML += '<div class="chatbot-message">¿Qué querés mejorar?</div>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'Usá un gestor de contraseñas y activá la autenticación en dos pasos.\')">¿Tus contraseñas te preocupan?</button>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'Configurá filtros antispam y no hagas clic en links sospechosos.\')">¿Recibís muchos mails sospechosos?</button>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'La autenticación multifactor es una excelente opción. Activalo desde la configuración de tus cuentas.\')">¿Querés usar algo más que tu contraseña?</button>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'Podemos revisar juntos. Agendá una charla gratuita con nuestro equipo.\')">¿Querés revisar si todo está seguro?</button>';
+      } else if (opcion === 'ataque') {
+        chatbotBody.innerHTML += '<div class="chatbot-message">¿Qué pasó?</div>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'Cambiá tus contraseñas ya y revisá la actividad reciente en tus cuentas.\')">¿Hackearon tu cuenta?</button>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'Bloqueá el teléfono, avisá a tu proveedor y cambiá accesos desde otro dispositivo.\')">¿Perdiste el celular?</button>';
+        chatbotBody.innerHTML += '<button class="btn btn-outline-dark chatbot-button" onclick="delayResponse(\'Escribinos a tuemail@dominio.com y te ayudamos personalmente.\')">¿Otro problema?</button>';
+      }
+    }, 2000);
+  }
+
+  // iniciar conversación en el primer despliegue
+  startChat();
+</script>
+
 </body>
 </html>
