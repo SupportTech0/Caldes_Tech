@@ -127,25 +127,18 @@
   html {
     scroll-behavior: smooth;
   }
-    
-  .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #5a7d9a;
-  top: 100%;
-  padding: 8px 0;
-  /* min-width unificado */
-  min-width: 180px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
-  border-radius: 8px;
+
+  /* Unificamos ancho mínimo para todos los dropdowns */
+.dropdown .dropdown-content {
+  min-width: 180px;  /* ajusta si quieres más o menos ancho */
 }
 
-/* sólo para el desplegable de la derecha */
+/* Alineamos el desplegable de la derecha sobre su lado derecho */
 .dropdown.right .dropdown-content {
-  left: auto;  /* anulamos left:0 */
-  right: 0;    /* alineamos al borde derecho */
+  left: auto;  /* anula left:0 heredado */
+  right: 0;    /* lo alinea al borde derecho del botón */
 }
+
 
     
     
