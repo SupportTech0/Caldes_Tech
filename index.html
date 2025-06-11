@@ -32,85 +32,102 @@
     margin: 0 auto;
   }
 
+  /* Botones */
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px;
+    font-weight: bold;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #5a7d9a;
+    top: 100%;
+    left: 0;
+    padding: 8px 0;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    border-radius: 8px;
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #4b6b85;
+  }
+
+  .show {
+    display: block;
+  }
+
   /* Logo */
   .logo img {
     max-height: 80px;
     border-radius: 12px;
   }
 
-  /* Menú */
-  nav {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex: 1;
-  }
-
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.2s;
-  }
-
-  nav a:hover {
-    color: #cfe2f3;
-  }
-
-  /* Logo en el centro visualmente */
   .logo {
     flex: 1;
     display: flex;
     justify-content: center;
   }
 
-  /* Redes sociales */
-  .social-icons {
+  .dropdown.left,
+  .dropdown.right {
     flex: 1;
+  }
+
+  .dropdown.right {
     display: flex;
     justify-content: flex-end;
-    gap: 16px;
   }
 
-  .social-icons a img {
-    width: 26px;
-    height: 26px;
-    filter: brightness(0) invert(1);
-    transition: transform 0.2s;
-  }
-
-  .social-icons a img:hover {
-    transform: scale(1.1);
-  }
-
-  /* Responsive */
   @media (max-width: 768px) {
     .header-container {
       flex-direction: column;
       align-items: center;
     }
 
-    nav {
-      justify-content: center;
-      flex: unset;
-      margin-bottom: 8px;
+    .dropdown {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
     }
 
-    .social-icons {
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+    }
+
+    .dropdown.right {
       justify-content: center;
-      margin-top: 8px;
     }
 
     .logo {
-      order: -1;
-      margin: 10px 0;
+      margin-bottom: 10px;
     }
   }
 
   html {
     scroll-behavior: smooth;
-  }    
+  }
+    
     footer {
       background-color: #5a7d9a;
     }
@@ -205,26 +222,33 @@
 <body>
 <header>
   <div class="header-container">
-    <nav>
-      <a href="#quien">¿Quiénes somos?</a>
-      <a href="#mision">Nuestra Misión</a>
-      <a href="#que">¿Qué hacemos?</a>
-      <a href="#membresias">Nuestras Membresías</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
 
+    <!-- Menú desplegable (izquierda) -->
+    <div class="dropdown left">
+      <button onclick="toggleMenu()">☰ Menú</button>
+      <div id="menuDropdown" class="dropdown-content">
+        <a href="#quien">¿Quiénes somos?</a>
+        <a href="#mision">Nuestra Misión</a>
+        <a href="#que">¿Qué hacemos?</a>
+        <a href="#membresias">Nuestras Membresías</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+
+    <!-- Logo (centro) -->
     <div class="logo">
       <img src="Logo.png.jpg" alt="Logo de Tech Support 2.0" />
     </div>
 
-    <div class="social-icons">
-      <a href="https://www.linkedin.com/tu-perfil" target="_blank">
-        <img src="linkedin-icon.png" alt="LinkedIn" />
-      </a>
-      <a href="https://www.instagram.com/tu-perfil" target="_blank">
-        <img src="instagram-icon.png" alt="Instagram" />
-      </a>
+    <!-- Redes sociales desplegables (derecha) -->
+    <div class="dropdown right">
+      <button onclick="toggleSocial()">🔗 Redes</button>
+      <div id="socialDropdown" class="dropdown-content">
+        <a href="https://www.linkedin.com/tu-perfil" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/tech_support_2.0?igsh=c2s2amk5cXlkeWlp" target="_blank">Instagram</a>
+      </div>
     </div>
+
   </div>
 </header>
   
@@ -390,6 +414,27 @@
     buttons.forEach(btn => btn.remove());
     delayResponse(message);
   }
+
+
+  
+  function toggleMenu() {
+    document.getElementById("menuDropdown").classList.toggle("show");
+    document.getElementById("socialDropdown").classList.remove("show");
+  }
+
+  function toggleSocial() {
+    document.getElementById("socialDropdown").classList.toggle("show");
+    document.getElementById("menuDropdown").classList.remove("show");
+  }
+
+  // Cierra los dropdowns si se hace clic fuera
+  window.onclick = function(e) {
+    if (!e.target.matches('button')) {
+      document.getElementById("menuDropdown").classList.remove("show");
+      document.getElementById("socialDropdown").classList.remove("show");
+    }
+  }
+  
 </script>
 
 </body>
