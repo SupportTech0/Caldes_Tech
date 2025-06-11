@@ -128,6 +128,27 @@
     scroll-behavior: smooth;
   }
     
+  .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #5a7d9a;
+  top: 100%;
+  padding: 8px 0;
+  /* min-width unificado */
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  border-radius: 8px;
+}
+
+/* sólo para el desplegable de la derecha */
+.dropdown.right .dropdown-content {
+  left: auto;  /* anulamos left:0 */
+  right: 0;    /* alineamos al borde derecho */
+}
+
+    
+    
     footer {
       background-color: #5a7d9a;
     }
