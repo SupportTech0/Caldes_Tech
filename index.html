@@ -2,7 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  img-src 'self' data:;
+  script-src 'self' https://cdn.jsdelivr.net;
+  style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+  font-src 'self' https://cdn.jsdelivr.net;
+  connect-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  frame-ancestors 'none';
+  ">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Consultoría de ciberseguridad especializada en la prevención de ataques de ingeniería social">
   <meta name="keywords" content="ciberseguridad, ingeniería social, tecnología, social engineering, technology, cybersecurity">
